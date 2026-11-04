@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Project Jal-Shodhak | Autonomous Waterway Restoration & Biofuel Drone</title>
+<style>
+  :root {
+    --primary: #0284c7;
+    --primary-dark: #0369a1;
+    --primary-light: #e0f2fe;
+    --accent: #10b981;
+    --accent-dark: #047857;
+    --accent-light: #d1fae5;
+    --dark-bg: #0b1329;
+    --dark-card: #132247;
+    --dark-border: #1e3a8a;
+    --text-main: #0f172a;
+    --text-muted: #64748b;
+    --bg-light: #f8fafc;
+    --card-light: #ffffff;
+    --border-light: #e2e8f0;
+  }
+
+  * {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+    color: var(--text-main);
+    background-color: var(--bg-light);
+    line-height: 1.6;
+    overflow-x: hidden;
+  }
+
+  /* Navigation Bar */
+  nav {
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+    background: rgba(11, 19, 41, 0.94);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    padding: 12px 24px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: #ffffff;
+  }
+
+  .nav-brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 1.15rem;
+    letter-spacing: -0.5px;
+    color: #ffffff;
+    text-decoration: none;
+  }
+
+  .nav-brand .badge-tag {
+    background: linear-gradient(135deg, #10b981, #0284c7);
+    color: #fff;
+    padding: 2px 8px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    font-weight: 700;
+    text-transform: uppercase;
+  }
+
+  .nav-links {
+    display: flex;
+    gap: 20px;
+    align-items: center;
+    list-style: none;
+  }
+
+  .nav-links a {
+    color: #94a3b8;
+    text-decoration: none;
+    font-size: 0.9rem;
+    font-weight: 500;
+    transition: color 0.2s ease;
+  }
+
+  .nav-links a:hover {
+    color: #38bdf8;
+  }
+
+  .btn-nav {
+    background: linear-gradient(135deg, #0284c7, #0d9488);
+    color: #ffffff !important;
+    padding: 6px 14px;
+    border-radius: 6px;
+    font-weight: 600 !important;
+  }
+
+  /* Hero Section */
+  .hero {
+    background: radial-gradient(circle at 80% 20%, #0369a1 0%, #0b1329 70%);
+    color: #ffffff;
+    padding: 70px 24px 60px;
+    text-align: center;
+    position: relative;
+  }
+
+  .hero-container {
+    max-width: 1050px;
+    margin: 0 auto;
+  }
+
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(16, 185, 129, 0.15);
+    border: 1px solid rgba(16, 185, 129, 0.4);
+    color: #34d399;
+    padding: 4px 14px;
+    border-radius: 30px;
+    font-size: 0.82rem;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+    text-transform: uppercase;
+    margin-bottom: 18px;
+  }
+
+  .hero h1 {
+    font-size: 2.8rem;
+    font-weight: 900;
+    line-height: 1.15;
+    margin-bottom: 16px;
+    letter-spacing: -1px;
+    background: linear-gradient(135deg, #ffffff 40%, #93c5fd 100%);
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  .hero p {
+    font-size: 1.15rem;
+    color: #cbd5e1;
+    max-width: 820px;
+    margin: 0 auto 30px;
+    line-height: 1.6;
+  }
+
+  .hero-actions {
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+    margin-bottom: 40px;
+  }
+
+  .btn {
+    padding: 12px 24px;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    cursor: pointer;
+    transition: transform 0.15s, box-shadow 0.15s;
+    border: none;
+  }
+
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .btn-primary {
+    background: linear-gradient(135deg, #10b981 0%, #0284c7 100%);
+    color: #ffffff;
+    box-shadow: 0 4px 15px rgba(2, 132, 199, 0.35);
+  }
+
+  .btn-secondary {
+    background: rgba(255, 255, 255, 0.1);
+    color: #ffffff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .btn-secondary:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Metric Counters */
+  .metrics-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    max-width: 950px;
+    margin: 0 auto;
+    background: rgba(0, 0, 0, 0.35);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 12px;
+    padding: 20px;
+  }
+
+  .metric-item strong {
+    display: block;
+    font-size: 2rem;
+    font-weight: 800;
+    color: #38bdf8;
+  }
+
+  .metric-item span {
+    font-size: 0.82rem;
+    color: #94a3b8;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Section Styles */
+  section {
+    padding: 60px 24px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: 40px;
+  }
+
+  .section-header .tag {
+    color: var(--primary);
+    font-size: 0.8rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    display: block;
+    margin-bottom: 6px;
+  }
+
+  .section-header h2 {
+    font-size: 2rem;
+    font-weight: 800;
+    color: #0f172a;
+    letter-spacing: -0.5px;
+  }
+
+  .section-header p {
+    color: var(--text-muted);
+    font-size: 1rem;
+    max-width: 650px;
+    margin: 8px auto 0;
+  }
+
+  /* Cards Grid */
+  .grid-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .grid-3 {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+  }
+
+  .grid-4 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+  }
+
+  .card {
+    background: var(--card-light);
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+    transition: transform 0.2s, box-shadow 0.2s;
+  }
+
+  .card:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  }
+
+  /* Problem vs Solution Comparison */
+  .comparison-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .problem-card {
+    background: #fef2f2;
+    border: 1px solid #fecaca;
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .problem-card h3 {
+    color: #b91c1c;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .solution-card {
+    background: #ecfdf5;
+    border: 1px solid #a7f3d0;
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .solution-card h3 {
+    color: #047857;
+    font-size: 1.2rem;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  ul.check-list, ul.cross-list {
+    list-style: none;
+    padding: 0;
+  }
+
+  ul.check-list li {
+    position: relative;
+    padding-left: 26px;
+    margin-bottom: 10px;
+    font-size: 0.92rem;
+    color: #064e3b;
+  }
+
+  ul.check-list li::before {
+    content: "✓";
+    position: absolute;
+    left: 0;
+    color: #10b981;
+    font-weight: 800;
+  }
+
+  ul.cross-list li {
+    position: relative;
+    padding-left: 26px;
+    margin-bottom: 10px;
+    font-size: 0.92rem;
+    color: #7f1d1d;
+  }
+
+  ul.cross-list li::before {
+    content: "✗";
+    position: absolute;
+    left: 0;
+    color: #ef4444;
+    font-weight: 800;
+  }
+
+  /* 4-Stage Pipeline Flow */
+  .pipeline-steps {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+    position: relative;
+  }
+
+  .step-card {
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 20px;
+    position: relative;
+    border-top: 4px solid var(--primary);
+  }
+
+  .step-num {
+    background: var(--primary-light);
+    color: var(--primary-dark);
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 800;
+    font-size: 0.85rem;
+    margin-bottom: 10px;
+  }
+
+  .step-card h4 {
+    font-size: 1rem;
+    margin-bottom: 6px;
+    color: #0f172a;
+  }
+
+  .step-card p {
+    font-size: 0.82rem;
+    color: var(--text-muted);
+    line-height: 1.45;
+  }
+
+  /* Interactive Tabs for SOP & Deployment */
+  .tabs-nav {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 24px;
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    background: #e2e8f0;
+    color: #475569;
+    border: none;
+    padding: 8px 18px;
+    border-radius: 6px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+  }
+
+  .tab-btn.active {
+    background: var(--primary);
+    color: #ffffff;
+  }
+
+  .tab-content {
+    display: none;
+    background: #ffffff;
+    border: 1px solid var(--border-light);
+    border-radius: 12px;
+    padding: 24px;
+  }
+
+  .tab-content.active {
+    display: block;
+    animation: fadeIn 0.25s ease-in;
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(4px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* Terminal Code Box */
+  .terminal-box {
+    background: #0f172a;
+    color: #38bdf8;
+    border-radius: 8px;
+    padding: 16px;
+    font-family: ui-monospace, SFMono-Regular, Menlo, Monaco, Consolas, monospace;
+    font-size: 0.85rem;
+    position: relative;
+    overflow-x: auto;
+    margin: 14px 0;
+  }
+
+  .terminal-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid #334155;
+    padding-bottom: 8px;
+    margin-bottom: 12px;
+    color: #94a3b8;
+    font-size: 0.75rem;
+  }
+
+  .btn-copy {
+    background: #334155;
+    color: #f8fafc;
+    border: none;
+    padding: 4px 10px;
+    border-radius: 4px;
+    font-size: 0.72rem;
+    cursor: pointer;
+  }
+
+  .btn-copy:hover {
+    background: #475569;
+  }
+
+  /* Tables */
+  .table-responsive {
+    overflow-x: auto;
+  }
+
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 0.88rem;
+    margin: 12px 0;
+  }
+
+  th {
+    background: #0f172a;
+    color: #ffffff;
+    padding: 10px 14px;
+    text-align: left;
+    font-weight: 600;
+  }
+
+  td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border-light);
+  }
+
+  tr:nth-child(even) td {
+    background: #f8fafc;
+  }
+
+  /* PDF Download Center */
+  .download-section {
+    background: linear-gradient(135deg, #091e42 0%, #0d47a1 100%);
+    color: #ffffff;
+    border-radius: 16px;
+    padding: 40px;
+    margin: 40px auto;
+  }
+
+  .download-card {
+    background: rgba(255, 255, 255, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+
+  .download-card h4 {
+    font-size: 1.1rem;
+    margin-bottom: 6px;
+    color: #ffffff;
+  }
+
+  .download-card .meta {
+    font-size: 0.8rem;
+    color: #93c5fd;
+    margin-bottom: 12px;
+  }
+
+  .download-card p {
+    font-size: 0.85rem;
+    color: #cbd5e1;
+    margin-bottom: 16px;
+    flex: 1;
+  }
+
+  /* Footer */
+  footer {
+    background: #091124;
+    color: #94a3b8;
+    padding: 40px 24px;
+    border-top: 1px solid #1e293b;
+    font-size: 0.88rem;
+  }
+
+  .footer-container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+
+  @media (max-width: 850px) {
+    .metrics-grid, .grid-3, .grid-4, .pipeline-steps {
+      grid-template-columns: 1fr 1fr;
+    }
+    .comparison-wrapper, .grid-2 {
+      grid-template-columns: 1fr;
+    }
+    .hero h1 {
+      font-size: 2.1rem;
+    }
+  }
+
+  @media (max-width: 580px) {
+    .metrics-grid, .pipeline-steps {
+      grid-template-columns: 1fr;
+    }
+    .nav-links {
+      display: none;
+    }
+  }
+</style>
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav>
+  <a href="#" class="nav-brand">
+    <span>JAL-SHODHAK</span>
+    <span class="badge-tag">Robotics & Waterways</span>
+  </a>
+  <ul class="nav-links">
+    <li><a href="#crisis">The Crisis</a></li>
+    <li><a href="#pipeline">4-Stage Pipeline</a></li>
+    <li><a href="#mechatronics">Engineering Specs</a></li>
+    <li><a href="#budget">BOM & Budget</a></li>
+    <li><a href="#deployment">Field SOP</a></li>
+    <li><a href="#national-strategy">Scale Strategy</a></li>
+    <li><a href="#downloads" class="btn-nav">PDF Download Center</a></li>
+  </ul>
+</nav>
+
+<!-- HERO SECTION -->
+<header class="hero">
+  <div class="hero-container">
+    <div class="hero-badge">National Engineering Innovation Initiative</div>
+    <h1>PROJECT JAL-SHODHAK (BIO-HARVESTER)</h1>
+    <p>Autonomous Amphibious Waterway Restoration Drone with On-Board Biomass-to-Biofuel Extrusion. Protecting irrigation canals, stopping monsoon floods, and generating rural clean energy.</p>
+    
+    <div class="hero-actions">
+      <a href="#downloads" class="btn btn-primary">
+        <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"></path></svg>
+        Download Master Report PDF
+      </a>
+      <a href="#pipeline" class="btn btn-secondary">
+        Explore 4-Stage Technology
+      </a>
+    </div>
+
+    <!-- Live Metric Counters -->
+    <div class="metrics-grid">
+      <div class="metric-item">
+        <strong>70%</strong>
+        <span>Flow Capacity Restored</span>
+      </div>
+      <div class="metric-item">
+        <strong>1,800 kg</strong>
+        <span>Daily Biofuel Pellets</span>
+      </div>
+      <div class="metric-item">
+        <strong>$19,020</strong>
+        <span>Full Prototype Cost (~₹15.8L)</span>
+      </div>
+      <div class="metric-item">
+        <strong>98%</strong>
+        <span>Cheaper Operating Energy</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- SECTION 1: THE NATIONAL CRISIS -->
+<section id="crisis">
+  <div class="section-header">
+    <span class="tag">Problem vs. Innovation</span>
+    <h2>The National Crisis: Choked Canals & Monsoon Floods</h2>
+    <p>Millions of kilometers of irrigation arteries are suffocated by Water Hyacinth (<em>Eichhornia crassipes</em>), causing downstream agrarian drought and deadly urban overflow.</p>
+  </div>
+
+  <div class="comparison-wrapper">
+    <div class="problem-card">
+      <h3>🚨 Conventional Excavators (JCBs)</h3>
+      <ul class="cross-list">
+        <li><strong>Canal Bank Destruction:</strong> Heavy diesel earthmovers fracture fragile earthen linings, accelerating embankment collapse.</li>
+        <li><strong>Excessive Diesel Burn:</strong> Consumes ~14 Liters/hour of diesel ($18/hour), emitting heavy greenhouse gases.</li>
+        <li><strong>Leaves Submerged Roots:</strong> Merely rips surface foliage, leaving root crowns intact to double in biomass in 12 days.</li>
+        <li><strong>Rotting Roadside Dumps:</strong> Piles decomposing weed along roadsides, emitting foul methane gas and breeding disease vectors.</li>
+      </ul>
+    </div>
+
+    <div class="solution-card">
+      <h3>💡 The Jal-Shodhak Breakthrough</h3>
+      <ul class="check-list">
+        <li><strong>Zero Embankment Impact:</strong> Amphibious ultralight catamaran ($0.22\text{ m}$ draft) navigates directly inside the canal water.</li>
+        <li><strong>Solar-Electric Powered:</strong> Rooftop bifacial solar PV + 48V LiFePO4 batteries reduce operational energy cost to $0.40/hour.</li>
+        <li><strong>Sub-Surface Root Severing:</strong> Reciprocating tungsten cutters slice roots $0.9\text{ m}$ deep, permanently eradicating weed mats.</li>
+        <li><strong>In-Situ Biofuel Pellets:</strong> Squeezes out 85% water and extrudes dry 8mm fuel pellets for rural smokeless cookstoves and kilns.</li>
+      </ul>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 2: THE 4-STAGE PIPELINE -->
+<section id="pipeline" style="background: #f1f5f9; border-radius: 16px; padding: 50px 30px;">
+  <div class="section-header">
+    <span class="tag">Circular Engineering</span>
+    <h2>The 4-Stage In-Situ Conversion Pipeline</h2>
+    <p>Turning noxious aquatic biomass into clean rural fuel right inside the waterway.</p>
+  </div>
+
+  <div class="pipeline-steps">
+    <div class="step-card">
+      <div class="step-num">1</div>
+      <h4>Intake & Cutting</h4>
+      <p>Dual counter-oscillating tungsten blades slice weeds 0.9m sub-surface. Low-torque agitating impellers sweep roots into the conveyor table.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">2</div>
+      <h4>Shredder & Dewater</h4>
+      <p>Counter-rotating hexagonal shafts mulch vegetation into 15mm pulp. A continuous progressive screw press expresses 85% water back into the stream.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">3</div>
+      <h4>Pelletizer Die</h4>
+      <p>Engine cooling jacket heat (85°C) activates natural lignin binders. A radial roller die compresses the fibers into 8mm dense solid biofuel pellets.</p>
+    </div>
+
+    <div class="step-card">
+      <div class="step-num">4</div>
+      <h4>Rural Utilization</h4>
+      <p>Pellets with 16.8 MJ/kg calorific value are offloaded via auger to rural cottage kilns and smokeless cookstoves, generating ~$144/day in green revenue.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 3: MECHATRONICS & SENSORS -->
+<section id="mechatronics">
+  <div class="section-header">
+    <span class="tag">Hardware & Perception</span>
+    <h2>Mechatronic Architecture & Autonomous Systems</h2>
+    <p>Engineered for rugged, GPS-denied, long-duration autonomous canal patrols.</p>
+  </div>
+
+  <div class="grid-3">
+    <div class="card">
+      <h4 style="color: var(--primary); margin-bottom: 8px;">Catamaran Hull & Crawlers</h4>
+      <p style="font-size: 0.88rem; color: var(--text-muted);">Marine-grade <strong>Aluminum 5083-H116</strong> with rotomolded HDPE floats. Features retractable rubber paddle tracks to crawl over weirs and bunds.</p>
+    </div>
+    <div class="card">
+      <h4 style="color: var(--primary); margin-bottom: 8px;">Perception & Edge AI</h4>
+      <p style="font-size: 0.88rem; color: var(--text-muted);"><strong>NVIDIA Jetson Orin Nano (40 TOPS)</strong> running YOLOv8 weed-segmentation models, fused with 50m solid-state LiDAR and IP68 stereo depth cameras.</p>
+    </div>
+    <div class="card">
+      <h4 style="color: var(--primary); margin-bottom: 8px;">Centimeter RTK-GNSS</h4>
+      <p style="font-size: 0.88rem; color: var(--text-muted);">Dual-antenna RTK receiver paired with a canal-bank LoRa base station provides &plusmn;2 cm waypoint accuracy in narrow 4m-wide canal corridors.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 4: BILL OF MATERIALS (BOM) -->
+<section id="budget">
+  <div class="section-header">
+    <span class="tag">Cost Transparency</span>
+    <h2>Prototype Bill of Materials (BOM)</h2>
+    <p>Complete itemized prototype budget for a field-ready autonomous scale vessel.</p>
+  </div>
+
+  <div class="table-responsive card">
+    <table>
+      <thead>
+        <tr>
+          <th>Subsystem</th>
+          <th>Component Specifications</th>
+          <th>Qty</th>
+          <th>Key Metric</th>
+          <th>Est. Cost ($)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hull & Chassis</strong></td>
+          <td>Al-5083 Catamaran Hull + Rotomolded HDPE Floats</td>
+          <td>1 Unit</td>
+          <td>Displacement: 950 kg; Draft: 0.22 m</td>
+          <td>$3,700</td>
+        </tr>
+        <tr>
+          <td><strong>Propulsion</strong></td>
+          <td>Dual 48V 1.8kW BLDC Thrusters with Kort Nozzles</td>
+          <td>2 Units</td>
+          <td>Bollard Thrust: 65 kgf; Max Speed: 6 knots</td>
+          <td>$1,840</td>
+        </tr>
+        <tr>
+          <td><strong>Cutter Bar</strong></td>
+          <td>Reciprocating Tungsten-tipped Cutter Bar</td>
+          <td>1 Set</td>
+          <td>Cut Width: 1.6 m; Depth: 0.9 m; 1200 rpm</td>
+          <td>$1,560</td>
+        </tr>
+        <tr>
+          <td><strong>Shredder/Press</strong></td>
+          <td>Twin-Shaft Shredder + Tapered Screw Dewaterer</td>
+          <td>1 Unit</td>
+          <td>Torque: 420 Nm; Moisture: 94% &rarr; 32%</td>
+          <td>$2,900</td>
+        </tr>
+        <tr>
+          <td><strong>Pelletizer Die</strong></td>
+          <td>Radial Roller Pellet Die Mill (4kW BLDC Core)</td>
+          <td>1 Unit</td>
+          <td>Pellet Diam: 8mm; 120 kg/hr dry throughput</td>
+          <td>$2,200</td>
+        </tr>
+        <tr>
+          <td><strong>Solar Canopy</strong></td>
+          <td>High-Efficiency Monocrystalline Bifacial Panels</td>
+          <td>4x 320W</td>
+          <td>Total 1.28 kWp; MPPT Charging Controller</td>
+          <td>$1,280</td>
+        </tr>
+        <tr>
+          <td><strong>Battery Pack</strong></td>
+          <td>LiFePO4 48V 120Ah Deep-Cycle Power Storage</td>
+          <td>2 Packs</td>
+          <td>11.5 kWh total capacity; 3500+ lifecycle</td>
+          <td>$3,200</td>
+        </tr>
+        <tr>
+          <td><strong>Compute & Vision</strong></td>
+          <td>NVIDIA Jetson Orin Nano + IP68 Stereo Depth Cams</td>
+          <td>1 Set</td>
+          <td>YOLOv8 Edge Model for Weed / Trash Classification</td>
+          <td>$1,500</td>
+        </tr>
+        <tr>
+          <td><strong>Navigation/IoT</strong></td>
+          <td>Dual-Antenna RTK-GNSS + 4G LTE/LoRa Gateway</td>
+          <td>1 Set</td>
+          <td>Centimeter Positioning + Cloud Irrigation Portal</td>
+          <td>$840</td>
+        </tr>
+        <tr style="background: #eff6ff; font-weight: 700; color: #1d4ed8;">
+          <td colspan="3"><strong>TOTAL PROTOTYPE DEVELOPMENT BUDGET</strong></td>
+          <td><strong>Ready for Field Trials</strong></td>
+          <td><strong>$19,020 (~₹15.8 Lakh)</strong></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</section>
+
+<!-- SECTION 5: FIELD DEPLOYMENT SOP -->
+<section id="deployment">
+  <div class="section-header">
+    <span class="tag">Operational Playbook</span>
+    <h2>Standard Operating Procedure (Field Deployment)</h2>
+    <p>Interactive step-by-step checklist and commands to commission and run the vessel.</p>
+  </div>
+
+  <div class="tabs-nav">
+    <button class="tab-btn active" onclick="switchTab('prefloat')">1. Pre-Float Checklist</button>
+    <button class="tab-btn" onclick="switchTab('terminal')">2. Jetson Terminal Commands</button>
+    <button class="tab-btn" onclick="switchTab('mission')">3. Autonomous Mission Plan</button>
+    <button class="tab-btn" onclick="switchTab('offload')">4. Auto-Docking & Offload</button>
+  </div>
+
+  <!-- Tab 1 -->
+  <div id="tab-prefloat" class="tab-content active">
+    <h3>Pre-Float Physical Safety Verification</h3>
+    <ul class="check-list" style="margin-top: 14px;">
+      <li><strong>Hull Watertightness:</strong> Confirm all pontoon inspection hatch seals and IP68 cable glands are secure. Verify bilge sensor indicates 0.0% moisture.</li>
+      <li><strong>Battery Voltage:</strong> Ensure 48V LiFePO4 bank is above 51.2V (>90% State of Charge) via the BMS telemetry dashboard.</li>
+      <li><strong>Cutter Clearance:</strong> Inspect reciprocating tungsten-carbide teeth gap (<0.4mm) and grease drive eccentrics.</li>
+      <li><strong>Emergency Kill-Switch:</strong> Test remote 433MHz emergency RF cutoff beacon (<100ms thruster disengage response).</li>
+    </ul>
+  </div>
+
+  <!-- Tab 2 -->
+  <div id="tab-terminal" class="tab-content">
+    <h3>NVIDIA Jetson Orin Nano Software Launch</h3>
+    <div class="terminal-box">
+      <div class="terminal-header">
+        <span>BASH TERMINAL - JETSON ORIN NANO</span>
+        <button class="btn-copy" onclick="copyCommands()">Copy Commands</button>
+      </div>
+      <code id="cmd-text">
+# 1. Start core ROS2 daemon and CAN-bus motor drivers<br>
+sudo systemctl start jalshodhak-marine-core.service<br><br>
+# 2. Launch LiDAR and IP68 stereo depth camera fusion<br>
+ros2 launch perception stereo_lidar_fusion.launch.py<br><br>
+# 3. Load TensorRT-accelerated weed segmentation model (40 TOPS)<br>
+ros2 run weed_detector yolov8_waterweed_tensorrt<br><br>
+# 4. Open MAVLink bridge to the STM32 ArduPilot marine autopilot<br>
+mavproxy.py --master=/dev/ttyTHS1 --baudrate 921600
+      </code>
+    </div>
+  </div>
+
+  <!-- Tab 3 -->
+  <div id="tab-mission" class="tab-content">
+    <h3>QGroundControl Waypoint Configuration</h3>
+    <p style="font-size: 0.92rem; color: var(--text-muted); margin-bottom: 12px;">In QGroundControl or Mission Planner, define the canal geofence polygon:</p>
+    <div class="grid-2">
+      <div class="card">
+        <strong>Survey Parameters:</strong>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">• Lane Overlap: 1.4 meters<br>• Patrol Speed: 1.8 knots (0.9 m/s)<br>• Cutter Depth: 0.7 meters sub-surface<br>• Obstacle Repulsion Margin: 0.8m from canal banks</p>
+      </div>
+      <div class="card">
+        <strong>Failsafe Action:</strong>
+        <p style="font-size: 0.85rem; color: var(--text-muted); margin-top: 4px;">If RTK lock is lost or current surge exceeds 45A on cutter bar, drone initiates reverse thrusters, raises cutter bar 0.3m, and alerts base station over LoRa.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- Tab 4 -->
+  <div id="tab-offload" class="tab-content">
+    <h3>Automated Pellet Offloading Cycle</h3>
+    <p style="font-size: 0.92rem; color: var(--text-muted);">When internal pellet bunker reaches 90% capacity (approx 315 kg), the drone autonomously returns to the bank-side transfer station:</p>
+    <ul class="check-list" style="margin-top: 10px;">
+      <li>Laser docking sensor aligns with receiving trailer hopper within &plusmn;15mm.</li>
+      <li>High-speed electric auger discharges dry biofuel pellets in under 4 minutes.</li>
+      <li>Vessel resumes scheduled grid harvesting pattern or plugs into solar trickle charging.</li>
+    </ul>
+  </div>
+</section>
+
+<!-- SECTION 6: NATIONAL STRATEGY (WHERE & HOW TO DEPLOY) -->
+<section id="national-strategy">
+  <div class="section-header">
+    <span class="tag">National Scaling Roadmap</span>
+    <h2>Where & How to Deploy Across the Nation</h2>
+    <p>A systematic framework to transition from college prototype to nationwide river/canal missions.</p>
+  </div>
+
+  <div class="grid-4">
+    <div class="card">
+      <div style="font-weight: 800; font-size: 1.2rem; color: var(--primary); margin-bottom: 6px;">01</div>
+      <h4>Target Departments</h4>
+      <p style="font-size: 0.8rem; color: var(--text-muted);">State Water Resources & Minor Irrigation Depts, Municipal Corporations (storm drains), and National Clean River Missions.</p>
+    </div>
+    <div class="card">
+      <div style="font-weight: 800; font-size: 1.2rem; color: var(--primary); margin-bottom: 6px;">02</div>
+      <h4>5-km Pilot Corridor</h4>
+      <p style="font-size: 0.8rem; color: var(--text-muted);">Execute a zero-cost demonstration on a 5km choked canal to prove hydraulic flow recovery and pellet yields to the Executive Engineer.</p>
+    </div>
+    <div class="card">
+      <div style="font-weight: 800; font-size: 1.2rem; color: var(--primary); margin-bottom: 6px;">03</div>
+      <h4>Funding & Grants</h4>
+      <p style="font-size: 0.8rem; color: var(--text-muted);">Apply under Startup India Seed Fund, DST-NIDHI, BIRAC Clean Tech, and PSU CSR grants (NTPC, NHPC, PowerGrid).</p>
+    </div>
+    <div class="card">
+      <div style="font-weight: 800; font-size: 1.2rem; color: var(--primary); margin-bottom: 6px;">04</div>
+      <h4>Village Cooperatives</h4>
+      <p style="font-size: 0.8rem; color: var(--text-muted);">License fleet operations to local Farmer Producer Organizations (FPOs) and Self-Help Groups (SHGs) who earn revenue from pellet sales.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SECTION 7: PDF DOWNLOAD CENTER -->
+<section id="downloads">
+  <div class="download-section">
+    <div style="text-align: center; margin-bottom: 30px;">
+      <h2 style="font-size: 2rem; font-weight: 800; color: #ffffff;">Project PDF Download Center</h2>
+      <p style="color: #93c5fd; max-width: 650px; margin: 8px auto 0;">All official engineering proposals, blueprints, and operational manuals compiled on your system.</p>
+    </div>
+
+    <div class="grid-3">
+      <!-- File 1 -->
+      <div class="download-card">
+        <div>
+          <h4>Master Project Report</h4>
+          <div class="meta">6 Pages • 750 KB • Complete Report</div>
+          <p>Comprehensive blueprint covering crisis background, mechanical design, Edge AI, complete BOM budget, SOPs, and national rollout strategy.</p>
+        </div>
+        <a href="Project_Jal_Shodhak_Master_Report.pdf" class="btn btn-primary" download>
+          Download Master PDF
+        </a>
+      </div>
+
+      <!-- File 2 -->
+      <div class="download-card">
+        <div>
+          <h4>Field Deployment Manual</h4>
+          <div class="meta">2 Pages • 135 KB • Operational SOP</div>
+          <p>Standard Operating Procedure with pre-float checklist, NVIDIA Jetson terminal commands, QGroundControl config, and offloading steps.</p>
+        </div>
+        <a href="Bio_Harvester_Field_Deployment_Manual.pdf" class="btn btn-secondary" download>
+          Download Manual PDF
+        </a>
+      </div>
+
+      <!-- File 3 -->
+      <div class="download-card">
+        <div>
+          <h4>Executive Project Proposal</h4>
+          <div class="meta">4 Pages • 682 KB • Submission Proposal</div>
+          <p>Presentation proposal engineered for college review panels, hackathon juries, and Irrigation Department grant applications.</p>
+        </div>
+        <a href="Bio_Harvester_National_Project_Proposal.pdf" class="btn btn-secondary" download>
+          Download Proposal PDF
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-container">
+    <div>
+      <strong style="color: #ffffff; font-size: 1rem;">Project Jal-Shodhak (Bio-Harvester)</strong>
+      <p style="margin-top: 4px; font-size: 0.8rem;">Autonomous Amphibious Waterway Restoration & Rural Clean Energy Initiative</p>
+    </div>
+    <div style="text-align: right; font-size: 0.8rem;">
+      <span>Department of Mechanical, Mechatronics & Autonomous Robotics</span><br>
+      <span style="color: #38bdf8;">Created & Compiled for National Sovereign Deployment</span>
+    </div>
+  </div>
+</footer>
+
+<script>
+  function switchTab(tabId) {
+    document.querySelectorAll('.tab-btn').forEach(btn => btn.classList.remove('active'));
+    document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
+
+    event.target.classList.add('active');
+    document.getElementById('tab-' + tabId).classList.add('active');
+  }
+
+  function copyCommands() {
+    const text = document.getElementById('cmd-text').innerText;
+    navigator.clipboard.writeText(text).then(() => {
+      alert("Terminal commands copied to clipboard!");
+    });
+  }
+</script>
+</body>
+</html>

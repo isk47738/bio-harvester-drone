@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PROJECT JAL-SHODHAK (BIO-HARVESTER) - Master Project Report & Technical Blueprint</title>
+<style>
+  @page {
+    size: A4;
+    margin: 11mm 13mm 11mm 13mm;
+  }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b; background: #ffffff; line-height: 1.38; font-size: 9.4pt; margin: 0; padding: 0;
+  }
+  .page-container {
+    height: 100%; min-height: 274mm; page-break-after: always; break-after: page;
+    display: flex; flex-direction: column; justify-content: space-between; position: relative;
+  }
+  .page-container:last-child { page-break-after: avoid; break-after: avoid; }
+  .content-body { flex: 1; }
+
+  /* Header Card */
+  .header-card {
+    background: linear-gradient(135deg, #091e42 0%, #0d47a1 55%, #00695c 100%);
+    color: #ffffff; padding: 14px 20px; border-radius: 8px; margin-bottom: 10px;
+  }
+  .header-badge {
+    display: inline-block; background: rgba(255,255,255,0.22); color: #80eec0;
+    padding: 2px 10px; border-radius: 14px; font-size: 7.5pt; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px;
+  }
+  .project-title { font-size: 16pt; font-weight: 800; margin: 0 0 3px 0; letter-spacing: -0.3px; line-height: 1.2; }
+  .project-subtitle { font-size: 9.5pt; color: #e2e8f0; margin: 0 0 8px 0; }
+  .meta-grid {
+    display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px;
+    background: rgba(0, 0, 0, 0.28); padding: 6px 10px; border-radius: 6px; font-size: 7.6pt;
+  }
+  .meta-item strong { display: block; color: #93c5fd; text-transform: uppercase; font-size: 6.5pt; letter-spacing: 0.5px; }
+
+  /* Headings */
+  h2 {
+    font-size: 11pt; font-weight: 700; color: #091e42; border-bottom: 1.5px solid #0d47a1;
+    padding-bottom: 2px; margin-top: 8px; margin-bottom: 5px; display: flex; align-items: center; gap: 6px;
+  }
+  h2 .num {
+    background: #0d47a1; color: #fff; width: 19px; height: 19px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 50%; font-size: 8pt;
+  }
+  p { margin: 0 0 5px 0; text-align: justify; }
+
+  /* Boxes */
+  .callout-box {
+    background: #f0fdf4; border-left: 3.5px solid #16a34a; padding: 6px 10px;
+    border-radius: 0 6px 6px 0; margin: 6px 0; font-size: 8.8pt;
+  }
+  .callout-box strong { color: #15803d; }
+
+  .problem-box {
+    background: #fef2f2; border-left: 3.5px solid #dc2626; padding: 6px 10px;
+    border-radius: 0 6px 6px 0; margin: 6px 0; font-size: 8.8pt;
+  }
+  .problem-box strong { color: #b91c1c; }
+
+  .step-box {
+    background: #eff6ff; border-left: 3.5px solid #2563eb; padding: 6px 10px;
+    border-radius: 0 6px 6px 0; margin: 6px 0; font-size: 8.8pt;
+  }
+  .step-box strong { color: #1d4ed8; }
+
+  /* Grids */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin: 5px 0; }
+  .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 7px 9px; }
+  .card-title { font-weight: 700; font-size: 8.8pt; color: #0d47a1; margin-bottom: 3px; display: flex; align-items: center; gap: 4px; }
+
+  /* Tables */
+  table { width: 100%; border-collapse: collapse; font-size: 7.8pt; margin: 5px 0 8px 0; }
+  th { background: #091e42; color: #ffffff; text-align: left; padding: 4.5px 7px; font-weight: 600; }
+  td { padding: 4px 7px; border-bottom: 1px solid #e2e8f0; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  .highlight-row td { background: #eff6ff !important; font-weight: 600; color: #1d4ed8; }
+
+  /* Diagrams */
+  .diagram-container {
+    background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px;
+    padding: 6px; text-align: center; margin: 6px 0;
+  }
+  .diagram-caption { font-size: 7.2pt; color: #64748b; margin-top: 3px; font-weight: 500; }
+
+  /* Badges */
+  .badge { display: inline-block; padding: 1px 5px; border-radius: 3px; font-size: 6.8pt; font-weight: 700; }
+  .badge-success { background: #dcfce7; color: #166534; }
+
+  /* Footer */
+  .doc-footer {
+    border-top: 1px solid #cbd5e1; padding-top: 4px; margin-top: 6px;
+    font-size: 6.8pt; color: #64748b; display: flex; justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: TITLE & THE NATIONAL CRISIS -->
+<div class="page-container">
+  <div class="content-body">
+    <div class="header-card">
+      <span class="header-badge">Master Engineering Project & National Deployment Blueprint</span>
+      <h1 class="project-title">PROJECT JAL-SHODHAK (BIO-HARVESTER)</h1>
+      <div class="project-subtitle">Autonomous Amphibious Canal Restoration Drone with In-Situ Biomass-to-Biofuel Extrusion</div>
+      <div class="meta-grid">
+        <div class="meta-item"><strong>Discipline</strong>Mechanical & Mechatronics</div>
+        <div class="meta-item"><strong>Mission Area</strong>Canal Desiltation & Irrigation</div>
+        <div class="meta-item"><strong>Core Innovation</strong>Twin-Catamaran Extruder Drone</div>
+        <div class="meta-item"><strong>Output Value</strong>Clean Waterways + Biofuel Pellets</div>
+      </div>
+    </div>
+
+    <div class="callout-box">
+      <strong>National Mission Statement:</strong> To safeguard the nation's agrarian arteries and rural water security by deploying autonomous amphibious robotic harvesters that clear weed-choked irrigation canals, restore natural drainage to prevent seasonal floods, and convert noxious aquatic biomass into decentralized, high-calorific clean biofuel pellets for rural communities.
+    </div>
+
+    <h2><span class="num">1</span> The National Crisis & Problem Statement</h2>
+    <p>Millions of kilometers of irrigation canals, river tributaries, and municipal water channels across the nation suffer from severe biological and hydrological choke points that jeopardize agricultural output and public safety:</p>
+
+    <div class="problem-box">
+      <strong>Core Threats to the Nation:</strong>
+      <ul style="margin: 2px 0 0 14px; padding: 0;">
+        <li><strong>Canal Choking by Water Hyacinth (<em>Eichhornia crassipes</em>):</strong> Hyacinth weed doubles in biomass every 10–12 days, forming dense floating mats that reduce water velocity and canal throughput by <strong>up to 70%</strong>, causing downstream tail-end farms to dry up during critical sowing cycles.</li>
+        <li><strong>Devastating Monsoon Flooding:</strong> Weed and silt choked drainage canals create massive backflow surges during heavy rains, causing earthen embankments to breach and triggering catastrophic rural and urban flash floods.</li>
+        <li><strong>Ecological Suffocation:</strong> Dense canopy blocks sunlight and consumes dissolved oxygen, triggering mass fish mortality and turning vital water reservoirs into stagnant breeding grounds for disease vectors.</li>
+        <li><strong>Failure of Existing Practices:</strong> Traditional diesel excavators (JCBs) operating from canal banks tear down fragile earthen bunds, burn ~14 L/hr of diesel, and dump rotting weed piles along roadsides that emit foul methane odors and toxic runoff.</li>
+      </ul>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🚨 Conventional Backhoe Dredging (Current Method)</div>
+        <p style="font-size: 7.8pt; margin: 0;">Heavy machinery operating from banks. Destroys earthen bunds, burns expensive diesel (~$18/hr), leaves roots intact in the water, and creates foul roadside dumps.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">💡 The Jal-Shodhak Solution (Our Innovation)</div>
+        <p style="font-size: 7.8pt; margin: 0;">Ultralight amphibious catamaran entering the water directly. Solar-electric powered, cuts roots 0.8m deep, shreds and converts wet weed into solid biofuel pellets on-board.</p>
+      </div>
+    </div>
+
+    <h2><span class="num">2</span> The 4-Stage In-Situ Circular Processing Pipeline</h2>
+    <p>Rather than merely cutting weeds and transporting wet rot, Jal-Shodhak processes raw aquatic weeds continuously on-board through four integrated stages:</p>
+
+    <div class="diagram-container">
+      <svg viewBox="0 0 760 115" width="100%" height="105" xmlns="http://www.w3.org/2000/svg">
+        <rect x="5" y="10" width="175" height="90" rx="6" fill="#e0f2fe" stroke="#0284c7" stroke-width="1.5"/>
+        <text x="92" y="28" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#0369a1">1. INTAKE & CUTTING</text>
+        <text x="92" y="47" font-family="sans-serif" font-size="7.6" text-anchor="middle" fill="#334155">• Dual Reciprocating Bars</text>
+        <text x="92" y="61" font-family="sans-serif" font-size="7.6" text-anchor="middle" fill="#334155">• 0.9m Sub-surface Root Cut</text>
+        <text x="92" y="75" font-family="sans-serif" font-size="7.6" text-anchor="middle" fill="#334155">• Silt Agitating Impeller</text>
+
+        <path d="M 183 55 L 197 55" stroke="#0284c7" stroke-width="2.5" fill="none"/>
+
+        <rect x="200" y="10" width="175" height="90" rx="6" fill="#f0fdf4" stroke="#16a34a" stroke-width="1.5"/>
+        <text x="287" y="28" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#15803d">2. SHREDDER & DEWATER</text>
+        <text x="287" y="47" font-family="sans-serif" font-size="7.6" text-anchor="middle" fill="#334155">• Counter-rotating Mulcher</text>
+        <text x="287" y="61" font-family="sans-serif" font-size="7.6" text-anchor="middle" fill="#334155">• Tapered Continuous Screw Press</text>
+        <text x="287" y="75" font-family="sans-serif" font-size="7.6" text-anchor="middle" fill="#334155">• Squeezes 85% Liquid to Canal</text>
+
+        <path d="M 378 55 L 392 55" stroke="#16a34a" stroke-width="2.5" fill="none"/>
+
+        <rect x="395" y="10" width="175" height="90" rx="6" fill="#fef9c3" stroke="#ca8a04" stroke-width="1.5"/>
+        <text x="482" y="28" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#a16207">3. PELLETIZER DIE</text>
+        <text x="482" y="47" font-family="sans-serif" font-size="7.6" text-anchor="middle" fill="#334155">• Radial Roller Extruder</text>
+        <text x="482" y="61" font-family="sans-serif" font-size="7.6" text-anchor="middle" fill="#334155">• 85°C Natural Lignin Binder</text>
+        <text x="482" y="75" font-family="sans-serif" font-size="7.6" text-anchor="middle" fill="#334155">• 8mm Solid Biofuel Pellets</text>
+
+        <path d="M 573 55 L 587 55" stroke="#ca8a04" stroke-width="2.5" fill="none"/>
+
+        <rect x="590" y="10" width="165" height="90" rx="6" fill="#f1f5f9" stroke="#475569" stroke-width="1.5"/>
+        <text x="672" y="28" font-family="sans-serif" font-size="9" font-weight="bold" text-anchor="middle" fill="#334155">4. RURAL UTILIZATION</text>
+        <text x="672" y="47" font-family="sans-serif" font-size="7.6" text-anchor="middle" fill="#334155">• Smokeless Rural Cookstoves</text>
+        <text x="672" y="61" font-family="sans-serif" font-size="7.6" text-anchor="middle" fill="#334155">• Brick Kilns & Boilers</text>
+        <text x="672" y="75" font-family="sans-serif" font-size="7.6" text-anchor="middle" fill="#334155">• Potash-Rich Bio-Compost</text>
+      </svg>
+      <div class="diagram-caption">Figure 1: On-board continuous processing pipeline converting raw aquatic weeds into high-density energy pellets.</div>
+    </div>
+  </div>
+  <div class="doc-footer">
+    <span>Project Jal-Shodhak Master Blueprint | Confidential Engineering Report</span>
+    <span>Page 1 of 6</span>
+  </div>
+</div>
+
+<!-- PAGE 2: MECHANICAL & MECHATRONIC SUBSYSTEMS -->
+<div class="page-container">
+  <div class="content-body">
+    <h2><span class="num">3</span> Mechanical & Mechatronic Engineering Subsystems</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">A. Amphibious Twin-Catamaran Hull & Crawlers</div>
+        <p style="font-size: 7.8pt;">Constructed from marine-grade corrosion-resistant <strong>Aluminum 5083-H116</strong> and rotomolded HDPE floats. Features an ultra-shallow operational draft of <strong>0.22 meters</strong> to glide over shallow weed beds and mud shoals.</p>
+        <ul style="font-size: 7.4pt; margin: 2px 0 0 12px; padding: 0;">
+          <li><strong>Propulsion:</strong> Dual 48V steerable BLDC Kort-nozzle thrusters with weed-chopping hub blades to prevent fouling.</li>
+          <li><strong>Bank Traversal:</strong> Retractable paddle-crawler tracks allow the drone to climb across canal bunds, locks, and weirs.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">B. Submerged Harvester & Mulcher</div>
+        <p style="font-size: 7.8pt;">Front articulated conveyor table equipped with dual reciprocating cutter bars engineered with <strong>tungsten-carbide serrated teeth</strong>. Submerges up to 0.9 m to cleanly slice root crowns.</p>
+        <ul style="font-size: 7.4pt; margin: 2px 0 0 12px; padding: 0;">
+          <li><strong>Hexagonal Shredder:</strong> High-torque twin shafts running at 180 RPM shred dense vegetation into 15–20 mm uniform mulch.</li>
+          <li><strong>Anti-Jam Torque Monitor:</strong> Dynamic load sensing automatically reverses cutters if nylon rope or scrap debris is detected.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">C. Continuous Screw-Press Dewaterer</div>
+        <p style="font-size: 7.8pt;">Fresh water hyacinth contains 92–95% water by weight. Jal-Shodhak uses a progressive tapered compression screw with a slotted wedge-wire cylindrical screen.</p>
+        <ul style="font-size: 7.4pt; margin: 2px 0 0 12px; padding: 0;">
+          <li><strong>Moisture Drop:</strong> Reduces moisture from 94% down to under 35% in seconds.</li>
+          <li><strong>Clean Effluent Return:</strong> Filtered, oxygenated water returns to the canal, replenishing local dissolved oxygen.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">D. Radial Die Extrusion Pelletizer</div>
+        <p style="font-size: 7.8pt;">The compressed biomass cake enters a rotary roller die extruder. Motor cooling jacket heat (85°C) liquefies the plant's natural lignin, bonding dense 8mm solid fuel pellets without chemical additives.</p>
+        <ul style="font-size: 7.4pt; margin: 2px 0 0 12px; padding: 0;">
+          <li><strong>Energy Density:</strong> ~16.8 MJ/kg (competes directly with dry wood briquettes).</li>
+          <li><strong>On-Board Bunker:</strong> 350 kg capacity with automated offloading auger for seamless canal-bank unloading.</li>
+        </ul>
+      </div>
+    </div>
+
+    <h2><span class="num">4</span> Mechatronics, Sensors & Autonomous Navigation</h2>
+    <p>The drone operates autonomously via centimeter-accurate satellite positioning and onboard Edge AI computer vision:</p>
+
+    <div class="diagram-container">
+      <svg viewBox="0 0 760 110" width="100%" height="100" xmlns="http://www.w3.org/2000/svg">
+        <rect x="15" y="10" width="145" height="85" rx="6" fill="#eff6ff" stroke="#3b82f6" stroke-width="1.5"/>
+        <text x="87" y="28" font-family="sans-serif" font-size="8.8" font-weight="bold" text-anchor="middle" fill="#1e40af">Perception Suite</text>
+        <text x="87" y="47" font-family="sans-serif" font-size="7.4" text-anchor="middle" fill="#334155">• Solid-State LiDAR (50m)</text>
+        <text x="87" y="61" font-family="sans-serif" font-size="7.4" text-anchor="middle" fill="#334155">• Dual IP68 Stereo Cameras</text>
+        <text x="87" y="75" font-family="sans-serif" font-size="7.4" text-anchor="middle" fill="#334155">• Downward Echo Sounder</text>
+
+        <path d="M 163 52 L 187 52" stroke="#3b82f6" stroke-width="2" fill="none"/>
+
+        <rect x="190" y="10" width="170" height="85" rx="6" fill="#fdf4ff" stroke="#a855f7" stroke-width="1.5"/>
+        <text x="275" y="28" font-family="sans-serif" font-size="8.8" font-weight="bold" text-anchor="middle" fill="#7e22ce">Edge AI & Navigation</text>
+        <text x="275" y="47" font-family="sans-serif" font-size="7.4" text-anchor="middle" fill="#334155">• Jetson Orin Nano (40 TOPS)</text>
+        <text x="275" y="61" font-family="sans-serif" font-size="7.4" text-anchor="middle" fill="#334155">• YOLOv8 Weed Segmentation</text>
+        <text x="275" y="75" font-family="sans-serif" font-size="7.4" text-anchor="middle" fill="#334155">• RTK-GNSS (±2 cm Precision)</text>
+
+        <path d="M 363 52 L 387 52" stroke="#a855f7" stroke-width="2" fill="none"/>
+
+        <rect x="390" y="10" width="165" height="85" rx="6" fill="#ecfdf5" stroke="#10b981" stroke-width="1.5"/>
+        <text x="472" y="28" font-family="sans-serif" font-size="8.8" font-weight="bold" text-anchor="middle" fill="#047857">Actuation & Controls</text>
+        <text x="472" y="47" font-family="sans-serif" font-size="7.4" text-anchor="middle" fill="#334155">• STM32 Marine Autopilot</text>
+        <text x="472" y="61" font-family="sans-serif" font-size="7.4" text-anchor="middle" fill="#334155">• CAN-Bus Motor Drivers</text>
+        <text x="472" y="75" font-family="sans-serif" font-size="7.4" text-anchor="middle" fill="#334155">• Adaptive Torque Limiting</text>
+
+        <path d="M 558 52 L 582 52" stroke="#10b981" stroke-width="2" fill="none"/>
+
+        <rect x="585" y="10" width="160" height="85" rx="6" fill="#fff7ed" stroke="#f97316" stroke-width="1.5"/>
+        <text x="665" y="28" font-family="sans-serif" font-size="8.8" font-weight="bold" text-anchor="middle" fill="#c2410c">National Telemetry</text>
+        <text x="665" y="47" font-family="sans-serif" font-size="7.4" text-anchor="middle" fill="#334155">• 4G LTE + LoRa Long-Range</text>
+        <text x="665" y="61" font-family="sans-serif" font-size="7.4" text-anchor="middle" fill="#334155">• Water Quality IoT Telemetry</text>
+        <text x="665" y="75" font-family="sans-serif" font-size="7.4" text-anchor="middle" fill="#334155">• Live Canal Flow GIS Portal</text>
+      </svg>
+      <div class="diagram-caption">Figure 2: Mechatronics sensor-to-actuation architecture with real-time cloud GIS synchronization.</div>
+    </div>
+  </div>
+  <div class="doc-footer">
+    <span>Project Jal-Shodhak Master Blueprint | Confidential Engineering Report</span>
+    <span>Page 2 of 6</span>
+  </div>
+</div>
+
+<!-- PAGE 3: BILL OF MATERIALS & TECHNO-ECONOMICS -->
+<div class="page-container">
+  <div class="content-body">
+    <h2><span class="num">5</span> Prototype Bill of Materials (BOM) & Budget</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Subsystem</th>
+          <th>Component Specification</th>
+          <th>Qty</th>
+          <th>Key Technical Metric</th>
+          <th>Est. Cost ($)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hull & Chassis</strong></td>
+          <td>Al-5083 Catamaran Hull + Rotomolded HDPE Floats</td>
+          <td>1 Unit</td>
+          <td>Displacement: 950 kg; Draft: 0.22 m</td>
+          <td>$3,700</td>
+        </tr>
+        <tr>
+          <td><strong>Propulsion</strong></td>
+          <td>Dual 48V 1.8kW BLDC Thrusters with Kort Nozzles</td>
+          <td>2 Units</td>
+          <td>Bollard Thrust: 65 kgf; Max Speed: 6 knots</td>
+          <td>$1,840</td>
+        </tr>
+        <tr>
+          <td><strong>Cutter Bar</strong></td>
+          <td>Reciprocating Tungsten-tipped Cutter Bar</td>
+          <td>1 Set</td>
+          <td>Cut Width: 1.6 m; Depth: 0.9 m; 1200 rpm</td>
+          <td>$1,560</td>
+        </tr>
+        <tr>
+          <td><strong>Shredder/Press</strong></td>
+          <td>Twin-Shaft Shredder + Tapered Screw Dewaterer</td>
+          <td>1 Unit</td>
+          <td>Torque: 420 Nm; Moisture Drop: 94% &rarr; 32%</td>
+          <td>$2,900</td>
+        </tr>
+        <tr>
+          <td><strong>Pelletizer Die</strong></td>
+          <td>Continuous Radial Die Pellet Mill (4kW BLDC Core)</td>
+          <td>1 Unit</td>
+          <td>Pellet Diam: 8mm; Throughput: 120 kg/hr dry</td>
+          <td>$2,200</td>
+        </tr>
+        <tr>
+          <td><strong>Solar Canopy</strong></td>
+          <td>High-Efficiency Monocrystalline Bifacial Panels</td>
+          <td>4x 320W</td>
+          <td>Total 1.28 kWp; MPPT Charging Controller</td>
+          <td>$1,280</td>
+        </tr>
+        <tr>
+          <td><strong>Battery Pack</strong></td>
+          <td>LiFePO4 48V 120Ah Deep-Cycle Power Storage</td>
+          <td>2 Packs</td>
+          <td>11.5 kWh total capacity; 3500+ lifecycle</td>
+          <td>$3,200</td>
+        </tr>
+        <tr>
+          <td><strong>Compute & Vision</strong></td>
+          <td>NVIDIA Jetson Orin Nano + IP68 Stereo Depth Cams</td>
+          <td>1 Set</td>
+          <td>YOLOv8 Edge Model for Weed / Trash Classification</td>
+          <td>$1,500</td>
+        </tr>
+        <tr>
+          <td><strong>Navigation/IoT</strong></td>
+          <td>Dual-Antenna RTK-GNSS + 4G LTE/LoRa Gateway</td>
+          <td>1 Set</td>
+          <td>Centimeter Positioning + Cloud Irrigation Portal</td>
+          <td>$840</td>
+        </tr>
+        <tr class="highlight-row">
+          <td colspan="3"><strong>TOTAL PROTOTYPE DEVELOPMENT BUDGET (Phase-1 Scale Unit)</strong></td>
+          <td><strong>Ready for Field Trials</strong></td>
+          <td><strong>$19,020 (~₹15.8 Lakh)</strong></td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2><span class="num">6</span> Comparative Advantage Over Conventional Methods</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Comparison Parameter</th>
+          <th>Conventional JCB / Excavator</th>
+          <th>Imported Weed Harvester Boats</th>
+          <th>Jal-Shodhak Bio-Harvester</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Capital Cost (Capex)</strong></td>
+          <td>$55,000 – $80,000</td>
+          <td>$150,000 – $320,000</td>
+          <td><strong>$9,500 – $14,000</strong> <span class="badge badge-success">85% Lower</span></td>
+        </tr>
+        <tr>
+          <td><strong>Operational Energy</strong></td>
+          <td>Diesel (~14 L/hr = $18/hr)</td>
+          <td>Diesel (~22 L/hr = $28/hr)</td>
+          <td><strong>Solar + LiFePO4 ($0.40/hr)</strong> <span class="badge badge-success">98% Cheaper</span></td>
+        </tr>
+        <tr>
+          <td><strong>Canal Bund Impact</strong></td>
+          <td>Severe erosion & road collapse</td>
+          <td>Requires wide docks; damages bunds</td>
+          <td><strong>Zero bank impact</strong> (Amphibious float)</td>
+        </tr>
+        <tr>
+          <td><strong>Biomass Disposition</strong></td>
+          <td>Rotting heaps on roads; toxic runoff</td>
+          <td>Dumped on barges; double transport</td>
+          <td><strong>In-situ pelletization</strong> (Valuable fuel)</td>
+        </tr>
+        <tr>
+          <td><strong>Carbon Footprint</strong></td>
+          <td>Net Emitting (~38 kg CO2 / hour)</td>
+          <td>Net Emitting (~58 kg CO2 / hour)</td>
+          <td><strong>Net Carbon Negative</strong> (Biofuel offset)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout-box">
+      <strong>Circular Economy Revenue Model:</strong> A single drone clearing 1.2 hectares per 8-hour shift produces approximately <strong>1,800 kg of dense dry biofuel pellets daily</strong>. Sold to local rural brick kilns or tea factories at $0.08/kg, the drone generates <strong>~$144/day in clean green revenue</strong>, fully amortizing its capital construction cost in approximately 4.5 months of operation!
+    </div>
+  </div>
+  <div class="doc-footer">
+    <span>Project Jal-Shodhak Master Blueprint | Confidential Engineering Report</span>
+    <span>Page 3 of 6</span>
+  </div>
+</div>
+
+<!-- PAGE 4: FIELD DEPLOYMENT SOP (PHASE 1 & 2) -->
+<div class="page-container">
+  <div class="content-body">
+    <h2><span class="num">7</span> Field Deployment SOP: Pre-Float & Software Boot</h2>
+
+    <p>Follow this exact Standard Operating Procedure (SOP) before putting the autonomous drone in the water:</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Phase 1: Site Survey & RTK Setup</div>
+        <p style="font-size: 7.6pt; margin: 0;">Fly a low-altitude mapping drone or use Sentinel-2 satellite NDVI data to locate weed choke-points. Set up the RTK-GNSS base station tripod on a firm canal embankment point. Confirm LoRa telemetry differential lock (&plusmn;2cm accuracy).</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Phase 2: Water Entry Slipway Setup</div>
+        <p style="font-size: 7.6pt; margin: 0;">Back the custom low-bed transport trailer into the canal ramp or slipway. Release the electric winch strap. The drone floats off into the water, engages reverse Kort thrusters, and holds station via dynamic positioning.</p>
+      </div>
+    </div>
+
+    <h3 style="font-size: 9.5pt; font-weight: 700; color: #091e42; margin: 6px 0 3px 0;">Pre-Float Hardware Inspection Checklist</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Check Item</th>
+          <th>Inspection Procedure</th>
+          <th>Expected Threshold</th>
+          <th>Action if Non-Compliant</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hull Watertightness</strong></td>
+          <td>Inspect pontoon hatches, O-rings, and cable glands</td>
+          <td>Zero moisture in bilge compartments</td>
+          <td>Replace silicone gasket & vacuum test</td>
+        </tr>
+        <tr>
+          <td><strong>LiFePO4 Battery Pack</strong></td>
+          <td>Check BMS telemetry on smart display</td>
+          <td>Voltage &gt; 51.2V (State of Charge &gt; 90%)</td>
+          <td>Connect solar fast-charger or hot-swap</td>
+        </tr>
+        <tr>
+          <td><strong>Cutter Bar & Shredder</strong></td>
+          <td>Verify blade clearance and lubricate drive eccentrics</td>
+          <td>Free rotation; cutter gap &lt; 0.4 mm</td>
+          <td>Re-shim blade guide and tighten drive clamp</td>
+        </tr>
+        <tr>
+          <td><strong>Screw Press & Die</strong></td>
+          <td>Inspect slotted wedge-wire screen for residual fibers</td>
+          <td>Clear extrusion channels; pre-heat die to 60°C</td>
+          <td>Run manual cleanout cycle using water jet</td>
+        </tr>
+        <tr>
+          <td><strong>Emergency Kill-Switch</strong></td>
+          <td>Test physical latch switch and remote 433MHz RF beacon</td>
+          <td>Immediate thruster and motor cutoff (&lt;100ms)</td>
+          <td>Do not launch until relay safety is verified</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size: 9.5pt; font-weight: 700; color: #091e42; margin: 6px 0 3px 0;">Software Stack Boot Sequence (NVIDIA Jetson Orin Nano)</h3>
+    <div class="step-box">
+      <div style="font-size: 7.6pt; font-family: monospace; line-height: 1.5;">
+        $ sudo systemctl start jalshodhak-marine-core.service &nbsp;&nbsp;# Launches ROS2 core & CAN-Bus motor driver<br>
+        $ ros2 launch perception stereo_lidar_fusion.launch.py &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Initializes IP68 cameras & solid-state LiDAR<br>
+        $ ros2 run weed_detector yolov8_waterweed_tensorrt &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Loads 40 TOPS accelerated weed segmentation<br>
+        $ mavproxy.py --master=/dev/ttyTHS1 --baudrate 921600 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Opens telemetry bridge to STM32 ArduPilot
+      </div>
+    </div>
+
+    <div class="card">
+      <div class="card-title">Mission Upload via QGroundControl / Mission Planner</div>
+      <p style="font-size: 7.6pt; margin: 0;">Define the canal clearing boundary polygon. Set the survey pattern with 1.4m lane overlap. Set forward speed to 1.8 knots (0.9 m/s) and submerge the cutter table to 0.7m depth. Upload waypoints over encrypted MAVLink telemetry.</p>
+    </div>
+  </div>
+  <div class="doc-footer">
+    <span>Project Jal-Shodhak Master Blueprint | Confidential Engineering Report</span>
+    <span>Page 4 of 6</span>
+  </div>
+</div>
+
+<!-- PAGE 5: HARVESTING & BANK OFFLOADING SOP -->
+<div class="page-container">
+  <div class="content-body">
+    <h2><span class="num">8</span> Autonomous Harvesting & Biomass Offloading Operations</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Step A: In-Situ Cutting & Mulching</div>
+        <p style="font-size: 7.8pt; margin: 0;">The drone engages the submerged reciprocating cutter blades, slicing through root crowns. The intake conveyor continuously sweeps the biomass into the counter-rotating shredder, mulching 120 kg of wet hyacinth per minute into uniform 15mm pulp.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Step B: Continuous Dewatering & Pelletizing</div>
+        <p style="font-size: 7.8pt; margin: 0;">The progressive tapered screw press squeezes out 85% of plant water, returning clear aerated liquid to the stream. The dried fibrous cake is extruded through the heated radial die into 8mm fuel pellets and deposited into the 350kg onboard bunker.</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Step C: Precision Docking & Offloading</div>
+        <p style="font-size: 7.8pt; margin: 0;">When the internal pellet hopper reaches 90% capacity, the drone automatically navigates to the canal-bank transfer station. A laser alignment sensor mates with the mobile hopper, discharging dry pellets via an electric auger in 4 minutes.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Step D: Post-Shift Maintenance Flush</div>
+        <p style="font-size: 7.8pt; margin: 0;">Perform a 5-minute high-pressure freshwater wash of the cutter bar and screw press. Inspect propeller Kort nozzles for entangling fishing line or plastic waste. Plug into the canal-side solar charging bank.</p>
+      </div>
+    </div>
+
+    <h2><span class="num">9</span> 12-Month Prototype & Field Trial Roadmap</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Quarter 1: CAD & Lab Bench Prototyping</div>
+        <ul style="font-size: 7.4pt; margin: 2px 0 0 12px; padding: 0;">
+          <li>Hydrodynamic simulation (ANSYS Fluent) of catamaran hull under weed drag.</li>
+          <li>Fabrication of scale screw-press dewaterer; torque and dewatering test bench.</li>
+          <li>Dataset collection and training of YOLOv8 weed-segmentation model.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Quarter 2: Full-Scale Fabrication</div>
+        <ul style="font-size: 7.4pt; margin: 2px 0 0 12px; padding: 0;">
+          <li>Welding and CNC fabrication of Al-5083 catamaran hull and conveyor structure.</li>
+          <li>Integration of 48V powertrain, solar canopy, and LiFePO4 battery management.</li>
+          <li>Static buoyancy, balance, and emergency bilge pump validation in tank test.</li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Quarter 3: Irrigation Canal Field Trials</div>
+        <ul style="font-size: 7.4pt; margin: 2px 0 0 12px; padding: 0;">
+          <li>Deployment in a 5 km heavily choked agricultural canal pilot stretch.</li>
+          <li>Validation of automated RTK-GNSS waypoint navigation and collision avoidance.</li>
+          <li>Chemical calorific testing (bomb calorimeter) of extruded biofuel pellets.</li>
+        </ul>
+      </div>
+
+      <div class="card">
+        <div class="card-title">Quarter 4: Autonomous Fleet Swarm & Handover</div>
+        <ul style="font-size: 7.4pt; margin: 2px 0 0 12px; padding: 0;">
+          <li>Implementation of multi-drone swarm coordination for broad lake clearing.</li>
+          <li>Creation of open-source maintenance manual and training for rural youth cooperatives.</li>
+          <li>Formal presentation to National Irrigation and Water Resources Ministries.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="doc-footer">
+    <span>Project Jal-Shodhak Master Blueprint | Confidential Engineering Report</span>
+    <span>Page 5 of 6</span>
+  </div>
+</div>
+
+<!-- PAGE 6: NATIONAL ROLLOUT, IMPACT & SIGN-OFF -->
+<div class="page-container">
+  <div class="content-body">
+    <h2><span class="num">10</span> National Institutional Strategy: Where & How to Deploy</h2>
+
+    <p>To scale this from a working prototype to a nationwide sovereign water rejuvenation program:</p>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">1. Target Government Nodal Agencies (Where)</div>
+        <p style="font-size: 7.6pt; margin: 0;"><strong>State Water Resources / Minor Irrigation Dept:</strong> Mandated with canal desiltation.<br>
+        <strong>Municipal Corporations & Smart Cities:</strong> Lake rejuvenation & storm drainage.<br>
+        <strong>National River Rejuvenation Missions:</strong> Namami Gange, State Wetland Authorities.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">2. The 5-km Demonstration Pilot Corridor (How)</div>
+        <p style="font-size: 7.6pt; margin: 0;">Submit proposal to the <strong>Executive Engineer (Irrigation)</strong> or District Collectorate for a zero-cost 5 km trial. Present before-and-after satellite NDVI weed coverage, canal flow velocity (cusecs), and water dissolved oxygen data.</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">3. National Innovation Grants & CSR Capital</div>
+        <p style="font-size: 7.6pt; margin: 0;"><strong>Government Grants:</strong> Startup India Seed Fund, DST-NIDHI, BIRAC Clean Tech.<br>
+        <strong>PSU CSR Funds:</strong> NTPC, NHPC, PowerGrid, and Oil PSUs have mandatory CSR allocations for clean water and green rural livelihoods.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">4. Rural Village Cooperative Model (FPOs/SHGs)</div>
+        <p style="font-size: 7.6pt; margin: 0;">License fleet management to local <strong>Farmer Producer Organizations (FPOs)</strong> and <strong>Self-Help Groups (SHGs)</strong>. They operate the drones to protect their crops and sell biofuel pellets ($140/day) as a sustainable village enterprise.</p>
+      </div>
+    </div>
+
+    <h2><span class="num">11</span> Direct National Benefits & Sovereign Impact</h2>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">🌾 Food Security & Irrigation Flow</div>
+        <p style="font-size: 7.6pt; margin: 0;">Guarantees full hydraulic flow through irrigation channels, ensuring water reaches tail-end farmers during critical sowing cycles.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🛡️ Flood Mitigation & Disaster Resilience</div>
+        <p style="font-size: 7.6pt; margin: 0;">Pre-monsoon canal desiltation prevents backflow surges and structural embankment breaches that cause catastrophic loss of life.</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">⚡ Rural Clean Fuel Independence</div>
+        <p style="font-size: 7.6pt; margin: 0;">Supplies rural homes with smokeless biomass pellets, replacing hazardous firewood burning and reducing acute respiratory illness.</p>
+      </div>
+
+      <div class="card">
+        <div class="card-title">🇮🇳 Atmanirbhar Technological Sovereignty</div>
+        <p style="font-size: 7.6pt; margin: 0;">Replaces multi-crore imported diesel dredger boats with indigenous, open mechatronic technology built, serviced, and operated locally.</p>
+      </div>
+    </div>
+
+    <div class="callout-box" style="margin-top: 6px;">
+      <strong>Conclusion & Call to Action:</strong> <em>Project Jal-Shodhak</em> proves that mechanical engineering, robotics, and circular economy design can directly solve one of the nation's most persistent ecological and agrarian crises. By transforming an environmental hazard into clean energy and water security, this project serves both the nation and its people.
+    </div>
+
+    <div style="margin-top: 8px; padding: 7px 12px; border: 1px dashed #94a3b8; border-radius: 6px; font-size: 7.4pt; display: flex; justify-content: space-between; align-items: center; background: #f8fafc;">
+      <div>
+        <strong>Project Submitted By:</strong> Engineering Research & Innovation Initiative<br>
+        <strong>Department:</strong> Mechanical, Mechatronics & Autonomous Systems
+      </div>
+      <div style="text-align: right;">
+        <strong>Verification Status:</strong> Prototype Stage Ready<br>
+        <strong>Documentation:</strong> Complete Master Project Blueprint (6 Pages)
+      </div>
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    <span>Project Jal-Shodhak Master Blueprint | Confidential Engineering Report</span>
+    <span>Page 6 of 6</span>
+  </div>
+</div>
+
+</body>
+</html>

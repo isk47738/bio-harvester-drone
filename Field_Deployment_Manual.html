@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>PROJECT JAL-SHODHAK: Standard Operating Procedure & Field Deployment Playbook</title>
+<style>
+  @page {
+    size: A4;
+    margin: 12mm 14mm 12mm 14mm;
+  }
+  * { box-sizing: border-box; -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: #1e293b; background: #fff; line-height: 1.4; font-size: 9.6pt; margin: 0; padding: 0;
+  }
+  .page-container {
+    height: 100%; page-break-after: always; break-after: page;
+    display: flex; flex-direction: column; justify-content: space-between; min-height: 272mm;
+  }
+  .page-container:last-child { page-break-after: avoid; break-after: avoid; }
+  .content-body { flex: 1; }
+
+  .header-card {
+    background: linear-gradient(135deg, #064e3b 0%, #0d9488 50%, #0369a1 100%);
+    color: #ffffff; padding: 14px 20px; border-radius: 8px; margin-bottom: 10px;
+  }
+  .header-badge {
+    display: inline-block; background: rgba(255,255,255,0.25); color: #a7f3d0;
+    padding: 2px 10px; border-radius: 12px; font-size: 7.5pt; font-weight: 700;
+    text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 4px;
+  }
+  .title { font-size: 16pt; font-weight: 800; margin: 0 0 4px 0; }
+  .subtitle { font-size: 9.5pt; color: #ccfbf1; margin: 0; }
+
+  h2 {
+    font-size: 11pt; font-weight: 700; color: #064e3b; border-bottom: 1.5px solid #0d9488;
+    padding-bottom: 3px; margin: 10px 0 6px 0; display: flex; align-items: center; gap: 6px;
+  }
+  .num {
+    background: #0d9488; color: #fff; width: 18px; height: 18px;
+    display: inline-flex; align-items: center; justify-content: center;
+    border-radius: 50%; font-size: 8pt;
+  }
+
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 6px 0; }
+  .card { background: #f8fafc; border: 1px solid #e2e8f0; border-radius: 6px; padding: 8px 10px; }
+  .card-title { font-weight: 700; font-size: 8.8pt; color: #065f46; margin-bottom: 4px; }
+
+  .step-box {
+    background: #f0fdf4; border-left: 3.5px solid #10b981; padding: 6px 10px;
+    border-radius: 0 6px 6px 0; margin: 6px 0; font-size: 8.8pt;
+  }
+
+  table { width: 100%; border-collapse: collapse; font-size: 8pt; margin: 6px 0; }
+  th { background: #064e3b; color: #fff; padding: 5px 8px; text-align: left; }
+  td { padding: 4.5px 8px; border-bottom: 1px solid #e2e8f0; }
+  tr:nth-child(even) td { background: #f8fafc; }
+
+  .doc-footer {
+    border-top: 1px solid #cbd5e1; padding-top: 4px; margin-top: 6px;
+    font-size: 7pt; color: #64748b; display: flex; justify-content: space-between;
+  }
+</style>
+</head>
+<body>
+
+<!-- PAGE 1: TECHNICAL & FIELD DEPLOYMENT SOP -->
+<div class="page-container">
+  <div class="content-body">
+    <div class="header-card">
+      <span class="header-badge">Standard Operating Procedure (SOP)</span>
+      <h1 class="title">JAL-SHODHAK FIELD DEPLOYMENT PLAYBOOK</h1>
+      <div class="subtitle">Complete Step-by-Step Guide: From Pre-Float Commissioning to National Irrigation Scaled Operations</div>
+    </div>
+
+    <h2><span class="num">1</span> Phase 1: Pre-Deployment & Site Reconnaissance</h2>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">A. Canal Bathymetry & Weed Density Survey</div>
+        <p style="font-size: 7.8pt; margin: 0;">Fly a low-altitude multispectral mini-drone or download Sentinel-2 NDVI satellite imagery to identify the densest weed choke-points and locate submerged debris. Confirm canal width (>3m) and minimum water depth (>0.35m).</p>
+      </div>
+      <div class="card">
+        <div class="card-title">B. RTK Base Station & GCS Setup</div>
+        <p style="font-size: 7.8pt; margin: 0;">Mount the RTK-GNSS tripod on a solid canal embankment point. Power on the LoRa differential telemetry transmitter (868/915 MHz). Establish centimeter-accurate coordinate correction lock with the drone's dual rover antennas.</p>
+      </div>
+    </div>
+
+    <h2><span class="num">2</span> Phase 2: Hardware Pre-Float Checklist</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Check Item</th>
+          <th>Inspection Procedure</th>
+          <th>Expected Threshold</th>
+          <th>Action if Non-Compliant</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Hull Watertightness</strong></td>
+          <td>Inspect catamaran pontoon hatches, O-rings, and cable glands</td>
+          <td>Zero moisture inside bilge compartments</td>
+          <td>Replace silicone gasket & vacuum check</td>
+        </tr>
+        <tr>
+          <td><strong>LiFePO4 Battery Pack</strong></td>
+          <td>Check BMS telemetry on smart display</td>
+          <td>Voltage &gt; 51.2V (State of Charge &gt; 90%)</td>
+          <td>Connect solar fast-charger or hot-swap pack</td>
+        </tr>
+        <tr>
+          <td><strong>Cutter Bar & Shredder</strong></td>
+          <td>Verify blade clearance and lubricate tungsten drive eccentrics</td>
+          <td>Free rotation; cutter gap &lt; 0.4 mm</td>
+          <td>Re-shim blade guide and tighten drive clamp</td>
+        </tr>
+        <tr>
+          <td><strong>Screw Press & Die</strong></td>
+          <td>Inspect slotted wedge-wire screen for residual dried fibers</td>
+          <td>Clear extrusion channels; pre-heat jacket to 60°C</td>
+          <td>Run manual cleanout cycle using water jet</td>
+        </tr>
+        <tr>
+          <td><strong>Emergency Kill-Switch</strong></td>
+          <td>Test physical latch switch and remote 433MHz RF beacon</td>
+          <td>Immediate thruster and motor cutoff (&lt;100ms)</td>
+          <td>Do not launch until relay safety is verified</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2><span class="num">3</span> Phase 3: Software Stack & Autopilot Boot Procedure</h2>
+    <div class="step-box">
+      <strong>Terminal Boot Sequence on NVIDIA Jetson Orin Nano:</strong>
+      <ol style="margin: 2px 0 0 16px; padding: 0; font-size: 7.6pt; font-family: monospace;">
+        <li>$ sudo systemctl start jalshodhak-marine-core.service &nbsp;&nbsp;# Launches ROS2 Iron core and CAN-Bus driver</li>
+        <li>$ ros2 launch perception stereo_lidar_fusion.launch.py &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Initializes IP68 cameras & solid-state LiDAR</li>
+        <li>$ ros2 run weed_detector yolov8_waterweed_tensorrt &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Loads 40 TOPS accelerated weed segmentation</li>
+        <li>$ mavproxy.py --master=/dev/ttyTHS1 --baudrate 921600 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;# Opens bridge to STM32 ArduPilot autopilot</li>
+      </ol>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Autonomous Mission Upload (QGroundControl)</div>
+        <p style="font-size: 7.8pt; margin: 0;">Define the canal clearing polygon. Set the survey pattern with 1.4m lane overlap. Set forward speed to 1.8 knots (0.9 m/s) and submerge the cutter table to 0.7m. Upload waypoints over encrypted MAVLink.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Canal Water Entry & Auto-Dock Setup</div>
+        <p style="font-size: 7.8pt; margin: 0;">Back the custom low-bed trailer into the canal slipway. Release the electric winch strap. Drone floats off autonomously, engages reverse thrusters, and holds station via RTK dynamic positioning.</p>
+      </div>
+    </div>
+  </div>
+  <div class="doc-footer">
+    <span>Project Jal-Shodhak Field Manual | Confidential Standard Operating Procedure</span>
+    <span>Page 1 of 2</span>
+  </div>
+</div>
+
+<!-- PAGE 2: OPERATIONAL WORKFLOW & NATIONAL STRATEGY -->
+<div class="page-container">
+  <div class="content-body">
+    <h2><span class="num">4</span> Phase 4: Autonomous Harvesting & Biofuel Offloading Cycle</h2>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Step A: In-Situ Cutting & Shredding</div>
+        <p style="font-size: 7.8pt; margin: 0;">The drone engages the submerged reciprocating blades, severing weed roots. The intake conveyor continuously sweeps the biomass into the counter-rotating shredder, mulching 120 kg of wet hyacinth per minute.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Step B: Continuous Dewatering & Pelletizing</div>
+        <p style="font-size: 7.8pt; margin: 0;">The progressive screw press squeezes out 85% of plant water, returning clear aerated liquid to the stream. The dried fibrous cake is extruded through the heated radial die into 8mm fuel pellets and deposited into the 350kg onboard bunker.</p>
+      </div>
+    </div>
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">Step C: Precision Docking & Offloading</div>
+        <p style="font-size: 7.8pt; margin: 0;">When the internal pellet hopper reaches 90% capacity, the drone automatically navigates to the canal-bank transfer point. A laser alignment sensor mates with the mobile hopper, discharging dry pellets via an electric auger in 4 minutes.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">Step D: Post-Shift Maintenance Flush</div>
+        <p style="font-size: 7.8pt; margin: 0;">Perform a 5-minute high-pressure freshwater wash of the cutter bar and screw press. Inspect propeller Kort nozzles for entangling fishing line. Plug into the canal-side solar charging bank.</p>
+      </div>
+    </div>
+
+    <h2><span class="num">5</span> National Deployment Strategy: Scaling to Millions of Canal Kilometers</h2>
+    <div class="step-box">
+      <strong>How an Engineering Team Can Execute This at the State & National Level:</strong>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">1. The 5-km Demonstration Pilot (MoU)</div>
+        <p style="font-size: 7.8pt; margin: 0;">Approach the <strong>Executive Engineer (Irrigation / Water Resources Department)</strong> or District Collectorate. Offer a zero-cost demonstration on a notoriously choked 5 km canal stretch to measure flow velocity increase and flood prevention.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">2. Securing Grants & Capital</div>
+        <p style="font-size: 7.8pt; margin: 0;">Apply under national schemes: <strong>Startup India Seed Fund</strong>, <strong>DST-NIDHI</strong>, <strong>BIRAC Clean Energy</strong>, or CSR grants from national infrastructure companies (NTPC, NHPC, PowerGrid, Oil PSUs) focused on water rejuvenation.</p>
+      </div>
+    </div>
+
+    <div class="grid-2">
+      <div class="card">
+        <div class="card-title">3. The Village Cooperative Model (FPOs/SHGs)</div>
+        <p style="font-size: 7.8pt; margin: 0;">Instead of managing every drone yourself, license the fleet to local <strong>Farmer Producer Organizations (FPOs)</strong> and <strong>Women's Self-Help Groups (SHGs)</strong>. They operate the drones, keep canals clean, and sell the biofuel pellets for sustainable rural income.</p>
+      </div>
+      <div class="card">
+        <div class="card-title">4. Integration into National Water Missions</div>
+        <p style="font-size: 7.8pt; margin: 0;">Link real-time canal telemetry (turbidity, dissolved oxygen, flow rate, GIS cleared area) into the <strong>National Water Informatics Centre (NWIC)</strong> dashboard via API for real-time nationwide water monitoring.</p>
+      </div>
+    </div>
+
+    <div style="margin-top: 10px; padding: 8px 12px; background: #ecfdf5; border: 1px dashed #059669; border-radius: 6px; font-size: 7.8pt;">
+      <strong>Summary Action Plan:</strong> Build scale prototype &rarr; Run bench tests in irrigation channel &rarr; Present before-and-after drone telemetry to Irrigation Department &rarr; Scale via village cooperatives and green government tenders.
+    </div>
+  </div>
+
+  <div class="doc-footer">
+    <span>Project Jal-Shodhak Field Manual | Confidential Standard Operating Procedure</span>
+    <span>Page 2 of 2</span>
+  </div>
+</div>
+
+</body>
+</html>
